@@ -1,0 +1,25 @@
+import requests
+import os
+import time
+print('请输入下载的连接（带上http和后缀名）例子：http://marven.cn/py.txt')
+url = input()
+print('请输入下载目录(末尾要加\\和文件名+后缀名,请不要在C:或D:等下载)例子：C:\\WeaAbout\\XXX.txt')
+url1 = input()
+(filepath,filename) = os.path.split(url1)
+n = str(os.path.exists(filepath))
+r = requests.get(url)
+if(n == 'True'):
+    print('正在下载中')
+    with open(url1, "wb") as code:
+        code.write(r.content)
+    print('Downloaded successfully')
+    print('Stopping services')
+    time.sleep(2)
+elif(n == 'False'):
+    print('Warning:输入的目录不存在！正在创建中...')
+    os.makedirs(filepath)
+    print('正在下载中...')
+    with open(url1, "wb") as code:
+        code.write(r.content)
+    print('Downloaded successfully')
+    print('Stopping services')
